@@ -1,4 +1,5 @@
 // @ts-check
+import dotenv from "dotenv";
 const { defineConfig, devices } = require('@playwright/test');
 
 /**
@@ -6,6 +7,9 @@ const { defineConfig, devices } = require('@playwright/test');
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({
+  path: './env/.env.staging',
+});
 
 /**
  * @see https://playwright.dev/docs/test-configuration
