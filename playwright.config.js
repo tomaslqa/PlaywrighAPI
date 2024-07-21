@@ -15,6 +15,7 @@ dotenv.config({
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+  globalSetup: require.resolve('./global-setup'),
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -29,10 +30,18 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+    //baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    extraHTTPHeaders: {
+      // We set this header per GitHub guidelines.
+      'Accept': '*/*',
+      // Add authorization token to all requests.
+      // Assuming personal access token available in the environment.
+      'Authorization': `Bearer ${process.env.API_TOKEN}`,
+    },
+
   },
 
   /* Configure projects for major browsers */
