@@ -5,30 +5,23 @@ exports.LoginPage = class LoginPage {
         this.page = page;
         this.title = page.getByText('Log In');
         this.logo = page.locator('//*[@class="logo-wrapper"]');
-        this.txtEmail = page.getByRole('input', { id: 'input-25' });
-        this.emailWarnMsg = page.getByRole('alert', { id: 'input-25-messages' });
-        this.txtPassword = page.getByRole('input', { id: 'input-27' });
-        this.passwordWarnMsg = page.getByRole('alert', { id: 'input-27-messages' });
-        this.rememberMeCheckbox = page.getByRole('checkbox', { id: 'checkbox-29' });
+        this.txtEmail = page.locator("(//input[@type= 'text'])[2]");
+        this.txtPassword = page.locator(("//input[@type= 'password']"));
+        this.rememberMeCheckbox = page.locator("//input[@type= 'checkbox']");
         this.loginBtn = page.locator('//button[contains(. ,"Log in")]');
         this.forgotPasswordLink = page.getByText('Forgot password?');
         this.createAccountLink = page.getByText("Don't have an account? Sign up");
 
     }
-    async openPage(url) {
-        this.page.goto(url);
-    }
 
     async EnterLoginDetails(username, password) {
         await expect.soft(this.title).toBeVisible();
-        await this.email.fill(username);
-        await this.password.fill(password);
-
+        await this.txtEmail.fill(username);
+        await this.txtPassword.fill(password);
     }
 
     async ClickLoginButton() {
         await this.loginBtn.click();
-        //await expect.soft(this.loginBtn).toBeHidden();
     }
 
     async CheckRememberMeBox() {
@@ -38,8 +31,8 @@ exports.LoginPage = class LoginPage {
     async CompleteLogin(username, password) {
         EnterLoginDetails(username, password)
         ClickLoginButton()
-
     }
+
     async CompleteLoginWithRememberMeOptionSElected(username, password) {
         EnterLoginDetails(username, password)
         CheckRememberMeBox()
@@ -47,10 +40,10 @@ exports.LoginPage = class LoginPage {
     }
 
     async clickCreateAccountLink() {
-        this.createAccountLink.click();
+        await this.createAccountLink.click();
     }
 
     async clickForgotPasswordLink() {
-        this.createAccountLink.click();
+        await this.createAccountLink.click();
     }
 }
