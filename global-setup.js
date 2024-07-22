@@ -2,7 +2,7 @@ const { request } = require('@playwright/test');
 
 
 async function globalSetup(config) {
-  
+
   //Saving Authorization token to .env file
   const requestContext = await request.newContext();
   const response = await requestContext.post(`${process.env.ADMIN_URL}`, {
@@ -29,6 +29,23 @@ async function globalSetup(config) {
     }
     console.log("testdata_users file saved!");
   });
+
+   //Fetching and saving all products in category to testdata file 
+    const requestProducts = await request.newContext();
+    const prod = await requestProducts.get(`${process.env.PRODUCTS_URL}`, {
+      form : {
+        'category' : `${process.env.CLEANUP_UUID}`,
+      }
+    });
+    console.log(prod);
+    const products = await prod.json();
+    fs.writeFile('test-data/testdata_products.json', JSON.stringify(products.data), (err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("testdata_products file saved!");
+    });
+
 }
 
 export default globalSetup;
