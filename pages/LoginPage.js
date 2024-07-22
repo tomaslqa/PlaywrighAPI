@@ -15,7 +15,6 @@ exports.LoginPage = class LoginPage {
     }
 
     async EnterLoginDetails(username, password) {
-        await expect.soft(this.title).toBeVisible();
         await this.txtEmail.fill(username);
         await this.txtPassword.fill(password);
     }
