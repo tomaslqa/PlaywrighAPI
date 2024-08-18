@@ -41,7 +41,7 @@ Run these commands.
 
 
 ```sh
-git clone https://github.com/tomaslqa/Petson.git
+git clone https://github.com/tomaslqa/PlaywrighAPI.git
 ```
 
 
